@@ -11,6 +11,10 @@ let getYesOrNo = require('./src/yesNo')
 let imageGenerator = require('./src/imageGenerator')
 let helpers = require('./src/helpers')
 
+const express = require('express');
+const app = express();
+const port = process.env.PORT || 5000;
+
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
 bot.start((ctx) => {
@@ -123,3 +127,16 @@ bot.hears(/hey/, (ctx) => ctx.reply('Hey there'));
 bot.on('sticker', (ctx) => ctx.reply('👍'));
 
 bot.launch()
+
+// const port = process.env.PORT || 3000;
+// const host = '0.0.0.0'
+// app.listen(port, host, ()=> connsole.log(`server is running on port ${port}`)
+
+app.post(`/${process.env.BOT_TOKEN}`, (req, res) => {
+  bot.processUpdate(req.body);
+  res.status(200).json({ message: 'ok' });
+});
+
+app.listen(port, () => {
+  console.log(`\n\nServer running on port ${port}.\n\n`);
+});

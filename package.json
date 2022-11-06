@@ -47,7 +47,7 @@
     "refresh": "npm run clean && npm ci",
     "clean": "git clean -fX .eslintcache docs/build/ lib/ typings/",
     "start": "node main.js",
-    "start-dev": "nodemon main.js"
+    "satrt:dev": "nodemon main.js"
   },
   "type": "commonjs",
   "engines": {
