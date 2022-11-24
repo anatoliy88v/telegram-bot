@@ -10,7 +10,7 @@ async function getAnswer() {
     .then(async (data) => data.image);
     return response;
   } catch (error) {
-    console.log('error getting cat image', error)
+    console.log('error getting answer', error)
   }
 }
 
