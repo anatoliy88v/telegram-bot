@@ -6,7 +6,6 @@ let jokeGenerator = require('./src/jokeGenerator')
 let weatherInfo = require('./src/weatherInfo')
 let questionReply = require('./src/questionReply')
 let catGeneratror = require('./src/catGeneratror')
-// TODO convert to save gif end send it
 let getYesOrNo = require('./src/yesNo')
 let imageGenerator = require('./src/imageGenerator')
 let helpers = require('./src/helpers')
@@ -24,14 +23,14 @@ bot.start((ctx) => {
 
 bot.command('fact', async (ctx) => {
   try {
-    ctx.reply('Generating image, Please wait !!!')
+    ctx.reply('Generating fact, Please wait !!!')
     let imagePath = `./temp/${uuidV4()}.jpg`
     await factGenerator.generateImage(imagePath)
     await ctx.replyWithPhoto({ source: imagePath })
     helpers.deleteImage(imagePath)
   } catch (error) {
     console.log('error', error)
-    ctx.reply('error sending image')
+    await ctx.reply(`${error}`)
   }
 })
 
@@ -41,6 +40,7 @@ bot.command('joke', async (ctx) => {
     await ctx.reply(`${joke}`)
   } catch (error) {
     console.log('error', error)
+    await ctx.reply(`${error}`)
   }
 })
 
@@ -51,6 +51,7 @@ bot.command('weather', async (ctx) => {
     await ctx.reply(`${weather}`)
   } catch (error) {
     console.log('error', error)
+    await ctx.reply(`${error}`)
   }
 })
 
@@ -62,6 +63,7 @@ bot.command('ask', async (ctx) => {
     await ctx.reply(`${answer}`)
   } catch (error) {
     console.log('error', error)
+    await ctx.reply(`${error}`)
   }
 })
 
@@ -73,6 +75,7 @@ bot.command('ask_recipe', async (ctx) => {
     await ctx.reply(`${recipe}`)
   } catch (error) {
     console.log('error', error)
+    await ctx.reply(`${error}`)
   }
 })
 
@@ -84,6 +87,7 @@ bot.command('horror', async (ctx) => {
     await ctx.reply(`${story}`)
   } catch (error) {
     console.log('error', error)
+    await ctx.reply(`${error}`)
   }
 })
 
@@ -96,6 +100,7 @@ bot.command('cat', async (ctx) => {
     helpers.deleteImage(imagePath)
   } catch (error) {
     console.log('error', error)
+    await ctx.reply(`${error}`)
   }
 })
 
@@ -110,6 +115,7 @@ bot.command('image', async (ctx) => {
     helpers.deleteImage(imagePath)
   } catch (error) {
     console.log('error', error)
+    await ctx.reply(`${error}`)
   }
 })
 
@@ -120,6 +126,7 @@ bot.command('yesno', async (ctx) => {
     await ctx.reply(`${answer}`)
   } catch (error) {
     console.log('error', error)
+    await ctx.reply(`${error}`)
   }
 })
 
@@ -127,10 +134,6 @@ bot.hears(/hey/, (ctx) => ctx.reply('Hey there'));
 bot.on('sticker', (ctx) => ctx.reply('👍'));
 
 bot.launch()
-
-// const port = process.env.PORT || 3000;
-// const host = '0.0.0.0'
-// app.listen(port, host, ()=> connsole.log(`server is running on port ${port}`)
 
 app.post(`/${process.env.BOT_TOKEN}`, (req, res) => {
   bot.processUpdate(req.body);

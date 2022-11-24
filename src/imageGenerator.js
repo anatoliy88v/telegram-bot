@@ -14,10 +14,10 @@ async function getImage(imagePath, description) {
     });
     const imageUrl = response.data.data[0].url;
 
-    let catImage = await Jimp.read(imageUrl).catch(error => console.log('error ', error))
-    await catImage.writeAsync(imagePath)
+    let image = await Jimp.read(imageUrl).catch(error => console.log('error ', error))
+    await image.writeAsync(imagePath)
   } catch (error) {
-    console.log('error getting cat image', error)
+    console.log('error getting image', error)
   }
 }
 
